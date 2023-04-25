@@ -1,0 +1,526 @@
+<!--From terminal go to the folder of the project
+$ python3 -m http.server 1080 
+In browser localhost:1080
+Not working well in Firefox. Use Chrome
+https://theretiredengineer.wordpress.com/2018/09/09/pannellum-panorama-viewer/
+-->
+
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A simple example</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    <style>
+    #panorama {
+        width: 100%;
+        height: 100vh;
+    }
+    ul{
+        margin-left:-20px;
+    }
+    .box1{
+        background-color: green;
+        border-radius: 5px;
+        text-align: left;
+        padding: 5px;
+    }
+    .infoimg{
+        width: 150px;
+    }
+    .panello{
+        height: 80vh;
+    }
+    .myhotspot {
+        height: 50px;
+        width: 50px;
+        background: #f00;
+    }
+    </style>
+</head>
+<body>
+
+<div id="panorama"></div>
+
+<script>
+    var st_0a_1 = "<img id='test1' class='panello' src='img/pan_1.jpg'>";
+    var st_0a_2 = "<div><b>Introduzione</b><div class='box1'>Che tipo di mondo desideriamo trasmettere a coloro che verrano dopo di noi, ai bambini che stanno crescendo? (LS 160)</div></div>";
+    var st_0a_3 = "<div><div class='box1'>Per ogni tema il percorso pronoe:<ul><li>Una presa di coscienza della realtà</li><li>Un'esperienza sensoriale</li><li>Una riflessione di approfondimento</li><li>Un invito all'azione</li></ul></div></div>";
+    
+    var st_1a_1 = "<div>Tutto è connesso<div class='box1'>Un ecosistema è un’unità ecologica costituita da organismi viventi (piante e animali) in grado di interagire tra loro ed adattarsi all’ambiente in cui vivono.</div></div>";
+    var st_1a_2 = "<div><div class='box1'>La crisi climatica e ambientale, le crescenti disuguaglianze ed impoverimento di miliardi di persone, i conflitti e le violenze che causano tanta sofferenza, sono aspetti diversi di un’unica realtà globale, in cui tutto è connesso all’insieme.</div></div>";
+    
+    var st_2a_1 = "<div><div class='box1'>Fontana dei cinque continenti</div></div>";
+    var st_2a_2 = "<div>Ecologia Integrale<div class='box1'>I sempre più evidenti cambiamenti climatici che sperimentiamo sono una conseguenza del riscaldamento globale indotto dall’accumulo di gas a effetto serra (anidride carbonica, metano, ossido di diazoto, gas fluorurati e vapore acqueo), cresciuto vertiginosamente a partire dalla prima era industriale.</div></div>";
+    var st_2a_3 = "<div>IL GREEN NEW DEAL<div class='box1'>Il significato del Green New Deal (un nuovo patto verde) è quello di risposta concreta all’emergenza dei cambiamenti climatici. Per la prima volta, una legge vincolante per tutti i Paesi UE ha sancito il raggiungimento della neutralità delle emissioni inquinanti entro il 2050.</div></div>";
+
+    var st_3a_1 = "<div>Stili di vita<div class='box1'>L’Impronta Ecologica (IE) è definita come: “l’area totale di ecosistemi terrestri ed acquatici richiesta per produrre le risorse che la popolazione di una comunità consuma e per assimilare i rifiuti che la popolazione stessa produce”.</div></div>";
+    var st_3a_2 = "<div>RIDUCI LA TUA IE!<div class='box1'><ul><li>aaa</li><li>Modificare le abitudini alimentari</li><li>Favorire la mobilità sostenibile</li><li>Utilizzare energia pulita</li><li>Non sprecare energia</li><li>Differenziare i rifiuti</li><li>Economia circolare</li><li>Lotta alla deforestazione</li><li>Salvaguardare la natura</li></ul></div></div>";
+
+    var st_4a_1 = "<div>La terra ci nutre<div class='box1'>La desertificazione dipende da più cause: dal cattivo uso del suolo da parte dell’uomo, dalla distruzione delle foreste e da un’agricoltura che sfrutta la terra e dai cambiamenti climatici che stanno sconvolgendo i cicli idrogeologici.</div></div>";
+    var st_4a_2 = "<div>AGRICOLTURA SOSTENIBILE<div class='box1'>La sfida è: come realizzare un’agricoltura a basso impatto ambientale? Come fare in modo che il nostro coltivare la terra sia al tempo stesso anche un custodirla? Solo così, infatti, le future generazioni potranno continuare ad abitarla e a coltivarla.</div></div>";
+    var st_4a_3 = "<div>Giardino verticale</div>";
+    var st_4a_4 = "<div>Orto in casetta</div>";
+    var st_4a_5 = "<div>Albergo degli insetti<img class='infoimg' src='img/04_insetti.jpg'></div>";
+
+    var st_5a_1 = "<div>Oltre lo scarto<div class='box1'>La produzione mondiale di plastica è passata dai 15 milioni del 1964 agli oltre 310 milioni attuali. Ogni anno almeno 8 milioni di tonnellate di plastica finiscono negli oceani del mondo</div></div>";
+    var st_5a_2 = "<div>RIDUCI, RIUSA, RICICLA, RECUPERA<div class='box1'>Questi i pilastri di una efficiente e sostenibile gestione integrata del ciclo dei rifiuti solidi urbani.</div></div>"; 
+    var st_5a_3 = "<div>Mulino a vento in plastica riciclata</div>";    
+    var st_5a_4 = "<div>Raccolta differenziata</div>";
+    var st_5a_5 = "<div>Statue di ferro</div>";
+
+
+    var st_6a_1 = "<div>Ecologia e missione<div class='box1'>Riqualificare la missione con una visione più conforme ai tempi che viviamo, implica un processo lento, difficile e profondo. Un percorso che va affrontato e vissuto, sin dalle tappe di formazione, per rendere visibili, attraverso le nostre azioni, i valori del Regno.</div></div>";
+    var st_6a_2 = "<div>AMORE CIVILE E POLITICO<div class='box1'>L’amore sociale è la chiave di un autentico sviluppo: «Per rendere la società più umana, più degna della persona, occorre rivalutare l’amore nella vita sociale – a livello, politico, economico, culturale - facendone la norma costante e suprema dell’agire ».</div></div>";
+
+    var st_6b_1 = "<div>Labirinto<div class='box1'>Uno strumento di meditazione che consiste in un singolo sentiero calpestabile, può costituire una fonte di conforto e calmare una mente distratta o iperattiva. Quando sei afflitto da emozioni inquietanti o eventi sfortunati della vita, camminare in un labirinto può aiutarti a risolvere il tuo malessere interiore e placare la mente in modo da fare chiarezza in ciò che sta avvenendo. Sia l'effetto calmante e tranquillizzante che il simbolismo metaforico del labirinto, inteso come viaggio o percorso spirituale, possono aiutarti a riflettere sui più grandi misteri della vita.</div></div>";
+
+
+    var st_xx_x = "<div><div class='box1'>xxx</div></div>";
+
+    pannellum.viewer('panorama', {
+        "default": {
+            "firstScene": "st_0a",
+            "sceneFadeDuration": 1000,
+            "autoLoad": true,
+            "toggleFullscreen": true,
+            //"hotSpotDebug": true
+        },
+        "scenes": {
+            "st_0a": {
+                "title": "PLS Intro",
+                "autoRotate": -1, 
+                "pitch": -3.8,
+                "yaw": -31,
+                "hfov": 120,
+                "type": "equirectangular",
+                "panorama": "img/pls_0.jpg",
+                "hotSpots": [                    
+                    {
+                        "type": "scene",
+                        "text": "Stazione 1",
+                        "sceneId": "st_1a",
+                        "pitch": -2.1,
+                        "yaw": -100,
+                        "hfov": 120
+                    },
+                    {
+                        "type": "info",
+                        "text": "Entrata principale",
+                        "pitch": 0,
+                        "yaw": 140
+                        //"URL": "https://comboni.org/"
+                    },
+                    {
+                        "type": "info",
+                        "text": st_0a_3,
+                        "pitch": -8,
+                        "yaw": 4,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_0a_2,
+                        "pitch": 0,
+                        "yaw": 4,
+                    }                    
+                ]
+            },
+            "st_1a": {
+                "title": "Stazione 1",
+                "autoRotate": -1, 
+                "hfov": 120,
+                "yaw": 5,
+                "pitch": 0,
+                "type": "equirectangular",
+                "panorama": "img/pls_1a.jpg",
+                "hotSpots": [
+                    {   
+                        "type": "scene",
+                        "text": "Panelo di introduzione",
+                        "sceneId": "st_0a",
+                        "pitch": 2,
+                        "yaw": 72
+                    },
+                    {   
+                        "type": "scene",
+                        "text": "Cammino della conciliazione",
+                        "sceneId": "st_1b",
+                        "pitch": -2,
+                        "yaw": -113
+                    },
+                    {
+                        "type": "info",
+                        "text": st_1a_1,
+                        "pitch": 2,
+                        "yaw": 5,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_1a_2,
+                        "pitch": -4,
+                        "yaw": 5,
+                    }
+                ]
+            },
+            "st_1b": {
+                "title": "Cammino della conciliazione",
+                "autoRotate": -1, 
+                "hfov": 120,
+                "yaw": 230,
+                "pitch": -2,
+                "type": "equirectangular",
+                "panorama": "img/pls_1b.jpg",
+                "hotSpots": [
+                    {   
+                        "type": "scene",
+                        "text": "Stazione 1",
+                        "sceneId": "st_1a",
+                        "pitch": 14,
+                        "yaw": -100
+                    },
+                    {   
+                        "type": "scene",
+                        "text": "Stazione 2",
+                        "sceneId": "st_2a",
+                        "pitch": -7,
+                        "yaw": 190
+                    }                    
+                ]
+            },
+            "st_2a": {
+                "title": "Stazione 2",
+                "autoRotate": -1, 
+                "hfov": 120,
+                "yaw": 5,
+                "pitch": 0,
+                "type": "equirectangular",
+                "panorama": "img/pls_2a.jpg",
+                "hotSpots": [
+                    {   
+                        "type": "scene",
+                        "text": "Cammino della conciliazione",
+                        "sceneId": "st_1b",
+                        "pitch": -5,
+                        "yaw": 143
+                    },
+                    {   
+                        "type": "scene",
+                        "text": "Angolo degli ulivi",
+                        "sceneId": "st_2b",
+                        "pitch": -8,
+                        "yaw": 60
+                    },
+                    {   
+                        "type": "scene",
+                        "text": "Stazione 3",
+                        "sceneId": "st_3a",
+                        "pitch": 0,
+                        "yaw": 14
+                    },
+                    {
+                        "type": "info",
+                        "text": st_2a_1,
+                        "pitch": -15,
+                        "yaw": 5,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_2a_2,
+                        "pitch": 12,
+                        "yaw": -32,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_2a_3,
+                        "pitch": 2,
+                        "yaw": -32,
+                    }                                                                   
+                ]
+            },
+            "st_2b": {
+                "title": "Angolo degli ulivi",
+                "autoRotate": -1, 
+                "hfov": 120,
+                "yaw": 5,
+                "pitch": 0,
+                "type": "equirectangular",
+                "panorama": "img/pls_2b.jpg",
+                "hotSpots": [
+                    {   
+                        "type": "scene",
+                        "text": "Stazione 3",
+                        "sceneId": "st_3a",
+                        "pitch": 2,
+                        "yaw": 14
+                    }
+                ]
+            },
+            "st_3a": {
+                "title": "Stazione 3",
+                "autoRotate": -1, 
+                "hfov": 120,
+                "yaw": 5,
+                "pitch": 0,
+                "type": "equirectangular",
+                "panorama": "img/pls_3a.jpg",
+                "hotSpots": [
+                    {   
+                        "type": "scene",
+                        "text": "Stazione 2",
+                        "sceneId": "st_2a",
+                        "pitch": 4,
+                        "yaw": -105
+                    },
+                    {   
+                        "type": "scene",
+                        "text": "Cammino della solitudine",
+                        "sceneId": "st_3b",
+                        "pitch": 0,
+                        "yaw": 19
+                    },
+                    {
+                        "type": "info",
+                        "text": st_3a_1,
+                        "pitch": 7,
+                        "yaw": 12,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_3a_2,
+                        "pitch": 0,
+                        "yaw": 12,
+                    }                      
+                ]
+            },
+            "st_3b": {
+                "title": "Cammino della solitudine",
+                "autoRotate": -1, 
+                "hfov": 120,
+                "yaw": 183,
+                "pitch": -3,
+                "type": "equirectangular",
+                "panorama": "img/pls_3b.jpg",
+                "hotSpots": [
+                    {   
+                        "type": "scene",
+                        "text": "Stazione 3",
+                        "sceneId": "st_3a",
+                        "pitch": -10,
+                        "yaw": -16
+                    },
+                    {   
+                        "type": "scene",
+                        "text": "Cammino dell'incontro",
+                        "sceneId": "st_3c",
+                        "pitch": -3,
+                        "yaw": 183
+                    }
+                ]
+            },
+            "st_3c": {
+                "title": "Cammino dell'incontro",
+                "autoRotate": -1, 
+                "hfov": 120,
+                "yaw": 5,
+                "pitch": 0,
+                "type": "equirectangular",
+                "panorama": "img/pls_3c.jpg",
+                "hotSpots": [
+                    {   
+                        "type": "scene",
+                        "text": "Cammino della solitudine",
+                        "sceneId": "st_3b",
+                        "pitch": -12,
+                        "yaw": -110
+                    },
+                    {   
+                        "type": "scene",
+                        "text": "Stazione 4",
+                        "sceneId": "st_4a",
+                        "pitch": 9,
+                        "yaw": -58
+                    }                    
+                ]
+            },
+            "st_4a": {
+                "title": "Stazione 4",
+                "autoRotate": -1, 
+                "hfov": 120,
+                "yaw": 5,
+                "pitch": 0,
+                "type": "equirectangular",
+                "panorama": "img/pls_4a.jpg",
+                "hotSpots": [
+                    {   
+                        "type": "scene",
+                        "text": "Stazione 5",
+                        "sceneId": "st_5a",
+                        "pitch": 4,
+                        "yaw": 100
+                    },
+                    {   
+                        "type": "scene",
+                        "text": "Cammino dell'incontro",
+                        "sceneId": "st_3c",
+                        "pitch": -6,
+                        "yaw": 144
+                    },
+                    {
+                        "type": "info",
+                        "text": st_4a_1,
+                        "pitch": 14,
+                        "yaw": 75,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_4a_2,
+                        "pitch": 10,
+                        "yaw": 75,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_4a_3,
+                        "pitch": 4,
+                        "yaw": 119,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_4a_4,
+                        "pitch": 4,
+                        "yaw": 35,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_4a_5,
+                        "pitch": 15,
+                        "yaw": 48,
+                    }                          
+                ]
+            },
+            "st_5a": {
+                "title": "Stazione 5",
+                "autoRotate": -1, 
+                "hfov": 120,
+                "yaw": 5,
+                "pitch": 0,
+                "type": "equirectangular",
+                "panorama": "img/pls_5a.jpg",
+                "hotSpots": [
+                    {   
+                        "type": "scene",
+                        "text": "Stazione 4",
+                        "sceneId": "st_4a",
+                        "pitch": 0,
+                        "yaw": -120
+                    },
+                    {   
+                        "type": "scene",
+                        "text": "Stazione 6",
+                        "sceneId": "st_6a",
+                        "pitch": -20,
+                        "yaw": 160
+                    },
+                    {
+                        "type": "info",
+                        "text": st_5a_1,
+                        "pitch": 19,
+                        "yaw": 5,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_5a_2,
+                        "pitch": 5,
+                        "yaw": 5,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_5a_3,
+                        "pitch": 44,
+                        "yaw": -20,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_5a_4,
+                        "pitch": -21,
+                        "yaw": 86,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_5a_5,
+                        "pitch": 7,
+                        "yaw": -29,
+                    }                         
+                ]
+            },
+            "st_6a": {
+                "title": "Stazione 6",
+                "autoRotate": -1, 
+                "hfov": 120,
+                "yaw": 190,
+                "pitch": -1,
+                "type": "equirectangular",
+                "panorama": "img/pls_6a.jpg",
+                "hotSpots": [
+                    {   
+                        "type": "scene",
+                        "text": "Stazione 5",
+                        "sceneId": "st_5a",
+                        "pitch": -2,
+                        "yaw": 21
+                    },
+                    {   
+                        "type": "scene",
+                        "text": "Labirinto",
+                        "sceneId": "st_6b",
+                        "pitch": 7,
+                        "yaw": 173
+                    },
+                    {
+                        "type": "info",
+                        "text": st_6a_1,
+                        "pitch": 10,
+                        "yaw": 196,
+                    },
+                    {
+                        "type": "info",
+                        "text": st_6a_2,
+                        "pitch": 4,
+                        "yaw": 196,
+                    }  
+                ]
+            },
+            "st_6b": {
+                "title": "Labirinto",
+                "autoRotate": -1, 
+                "hfov": 120,
+                "yaw": 5,
+                "pitch": 0,
+                "type": "equirectangular",
+                "panorama": "img/pls_6b.jpg",
+                "hotSpots": [
+                    {   
+                        "type": "scene",
+                        "text": "Stazione 6",
+                        "sceneId": "st_6a",
+                        "pitch": -8,
+                        "yaw": 152
+                    },
+                    {
+                        "type": "info",
+                        "text": st_6b_1,
+                        "pitch": -10,
+                        "yaw": 11,
+                    }  
+                ]
+            }                      
+        }
+    });
+
+</script>
+
+</body>
+</html>
